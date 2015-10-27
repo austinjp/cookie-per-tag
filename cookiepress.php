@@ -65,7 +65,7 @@ function cookiepress_admin() {
 }
 
 function cookiepress_admin_actions() {
-    add_options_page("Cookie Tag", "Cookie Tag", 1, "cookiepress_options", "cookiepress_admin");
+    add_options_page("CookiePress", "CookiePress", 1, "cookiepress_options", "cookiepress_admin");
 }
 add_action('admin_menu', 'cookiepress_admin_actions');
 
