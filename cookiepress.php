@@ -1,6 +1,6 @@
 <?php
 /*
-  Plugin Name: Cookie Tag
+  Plugin Name: CookiePress
   Plugin URI: http://example.com
   Description: Plugin for tracking tag views using a cookie
   Author: Austin Plunkett
@@ -8,21 +8,21 @@
   Author URI: http://example.com
 */
 
-register_activation_hook(__FILE__,'cookietag_activate');
-register_uninstall_hook(__FILE__,'cookietag_remove');
+register_activation_hook(__FILE__,'cookiepress_activate');
+register_uninstall_hook(__FILE__,'cookiepress_remove');
 
 add_action('admin_init','register_my_settings');
 
 
-function cookietag_activate() {
-    if (false == get_option('cookietag_data')) { add_option('cookietag_data'); }
+function cookiepress_activate() {
+    if (false == get_option('cookiepress_data')) { add_option('cookiepress_data'); }
 }
 
 
-function cookietag_remove() { delete_option('cookietag_data'); }
+function cookiepress_remove() { delete_option('cookiepress_data'); }
 
 
-function cookietag_get_tags_set_cookie() {
+function cookiepress_get_tags_set_cookie() {
     // TODO Get cookie if it exists
 
     global $wp_query; 
@@ -60,20 +60,20 @@ function cookietag_get_tags_set_cookie() {
 
 }
 
-function cookietag_admin() {
-    include('cookietag_admin.php');
+function cookiepress_admin() {
+    include('cookiepress_admin.php');
 }
 
-function cookietag_admin_actions() {
-    add_options_page("Cookie Tag", "Cookie Tag", 1, "cookietag_options", "cookietag_admin");
+function cookiepress_admin_actions() {
+    add_options_page("Cookie Tag", "Cookie Tag", 1, "cookiepress_options", "cookiepress_admin");
 }
-add_action('admin_menu', 'cookietag_admin_actions');
+add_action('admin_menu', 'cookiepress_admin_actions');
 
 
 /*
 if ( ! function_exists('register_my_settings') ) {
     function register_my_settings() {
-        register_setting('cookietag_options','cookietag_data');
+        register_setting('cookiepress_options','cookiepress_data');
     }
 }
 */

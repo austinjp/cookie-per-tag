@@ -1,8 +1,3 @@
-# Cookie tag
+# CookiePress
 
-A Wordpress plugin that uses cookies to track the tags that users view when they browse posts.
-
-## Not included
-
-Categories and pages are *not* tracked by this plugin.
-
+A Wordpress plugin that uses cookies to track the tags and categories that users view when they browse posts.
