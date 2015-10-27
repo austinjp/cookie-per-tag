@@ -1,11 +1,11 @@
 <?php
 /*
   Plugin Name: CookiePress
-  Plugin URI: http://example.com
+  Plugin URI: http://github.com/austinjp/cookiepress
   Description: Plugin for tracking tag views using a cookie
   Author: Austin Plunkett
   Version: 0.0.1
-  Author URI: http://example.com
+  Author URI: http://github.com/austinjp
 */
 
 register_activation_hook(__FILE__,'cookiepress_activate');
