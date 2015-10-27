@@ -23,42 +23,75 @@ function cookiepress_remove() { delete_option('cookiepress_data'); }
 
 
 function cookiepress_get_tags_set_cookie() {
-    // TODO Get cookie if it exists
 
     global $wp_query; 
     $postid = $wp_query->post->ID;
-    echo '<!-- Got post id = ' . $postid . ' -->' . "\n";
 
-    $posttags = get_the_tags($postid);
-    $postcats = wp_get_post_categories($postid);
+    if ($postid) {
+        echo '<!-- Got post id = ' . $postid . ' -->' . "\n";
+        
+        $posttags = get_the_tags($postid);
+        $postcats = wp_get_post_categories($postid);
+        
+        // TODO Get cookie if it exists
+        $tags = array(
+            "tag1" => 1,
+            "tag2" => 99,
+            "tag3" => 0
+        );
 
-    $test = '';
-
-    if ($posttags) {
-        foreach($posttags as $tag) {
-            // TODO generate cookie to update or set
-            $test = $test . '|' . $tag;
-            echo '  <!-- tag: ' . $tag . ' -->' . "\n";
+        if ($posttags) {
+            foreach($posttags as $tag) {
+                $tags[$tag]++;
+                echo '  <!-- tag: ' . $tags[$tag] . ' -->' . "\n";
+            }
+        } else {
+            echo '  <!-- NO TAGS!! -->' . "\n";
         }
-    } else {
-        echo '  <!-- NO TAGS!! -->' . "\n";
-    }
+        $tags = json_encode($tags);
 
-    $test = '';
 
-    if ($postcats) {
-        foreach($postcats as $c) {
-            $cat = get_category($c);
-            $test = $test . '|' . $cat->name;
-            echo '  <!-- cat: ' . $cat->name . ' -->' . "\n";
+        // TODO Complete this chunk:
+        $cats = array();
+        if (isset($_COOKIE['cookiepress-cats'])) {
+            $j = json_decode(stripslashes($_COOKIE['cookiepress-cats']), true);
+            foreach ($j as $k => $v) {
+                echo '    <!-- Cookie:tag: ' . $k . ' = ' . $v . ' -->' . "\n";
+            }
         }
-    } else {
-        echo '  <!-- NO CATS!! -->' . "\n";
-    }
-    
-    // TODO update or set cookie
+
+
+        if ($postcats) {
+            foreach($postcats as $c) {
+                $cat = get_category($c);
+                $cats[$cat->name]++; // TODO Use ID not name
+                echo '  <!-- cat: ' . $cat->name . ' -->' . "\n";
+            }
+        } else {
+            echo '  <!-- NO CATS!! -->' . "\n";
+        }
+        $cats = json_encode($cats);
+
+        // TODO update or set cookie
+        setcookie(
+            'cookiepress-tags',
+            $tags,
+            time()+360,
+            COOKIEPATH,
+            COOKIE_DOMAIN
+        );
+        setcookie(
+            'cookiepress-cats',
+            $cats,
+            time()+360,
+            COOKIEPATH,
+            COOKIE_DOMAIN
+        );
+
+    } // if $postid
 
 }
+
 
 function cookiepress_admin() {
     include('cookiepress_admin.php');
