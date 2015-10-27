@@ -8,6 +8,17 @@
     Author URI: http://example.com
   */
 
+function cookietag_get_tags_set_cookie() {
+  // TODO Get cookie if it exists
+  $posttags = get_the_tags();
+  if ($posttags) {
+    foreach($posttags as $tag) {
+      // TODO generate cookie to update or set
+    }
+    // TODO update or set cookie
+  }
+}
+
 function cookietag_admin() {
   include('cookietag_admin.php');
 }
