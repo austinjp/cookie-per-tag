@@ -1,4 +1,4 @@
-# Cookie per tag
+# Cookie tag
 
 A Wordpress plugin that uses cookies to track the tags that users view when they browse posts.
 
