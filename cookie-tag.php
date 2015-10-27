@@ -13,21 +13,51 @@ register_uninstall_hook(__FILE__,'cookietag_remove');
 
 add_action('admin_init','register_my_settings');
 
+
 function cookietag_activate() {
     if (false == get_option('cookietag_data')) { add_option('cookietag_data'); }
 }
 
+
 function cookietag_remove() { delete_option('cookietag_data'); }
+
 
 function cookietag_get_tags_set_cookie() {
     // TODO Get cookie if it exists
-    $posttags = get_the_tags();
+
+    global $wp_query; 
+    $postid = $wp_query->post->ID;
+    echo '<!-- Got post id = ' . $postid . ' -->' . "\n";
+
+    $posttags = get_the_tags($postid);
+    $postcats = wp_get_post_categories($postid);
+
+    $test = '';
+
     if ($posttags) {
         foreach($posttags as $tag) {
             // TODO generate cookie to update or set
+            $test = $test . '|' . $tag;
+            echo '  <!-- tag: ' . $tag . ' -->' . "\n";
         }
-        // TODO update or set cookie
+    } else {
+        echo '  <!-- NO TAGS!! -->' . "\n";
     }
+
+    $test = '';
+
+    if ($postcats) {
+        foreach($postcats as $c) {
+            $cat = get_category($c);
+            $test = $test . '|' . $cat->name;
+            echo '  <!-- cat: ' . $cat->name . ' -->' . "\n";
+        }
+    } else {
+        echo '  <!-- NO CATS!! -->' . "\n";
+    }
+    
+    // TODO update or set cookie
+
 }
 
 function cookietag_admin() {
