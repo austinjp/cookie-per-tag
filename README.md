@@ -25,3 +25,10 @@ To start setting cookies, try adding something like the following into your them
 <!-- end cookiepress -->
 
 ```
+
+## Use
+
+Suggested uses might be to read the cookies in order to:
+
+* Generate links to related blog posts
+* Produce better usage stats
