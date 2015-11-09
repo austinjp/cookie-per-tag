@@ -28,51 +28,70 @@ function cookiepress_get_tags_set_cookie() {
     $postid = $wp_query->post->ID;
 
     if ($postid) {
-        echo '<!-- Got post id = ' . $postid . ' -->' . "\n";
-        
+#        echo '<!-- Got post id = ' . $postid . ' -->' . "\n";
+
+        # TODO IS this approach worth considering?
+        # $postcats = get_term_by('id', $postid, 'category');
+        # $posttags = get_term_by('id', $postid, 'post_tag');
+
         $posttags = get_the_tags($postid);
         $postcats = wp_get_post_categories($postid);
+
         
-        // TODO Get cookie if it exists
-        $tags = array(
-            "tag1" => 1,
-            "tag2" => 99,
-            "tag3" => 0
-        );
-
-        if ($posttags) {
-            foreach($posttags as $tag) {
-                $tags[$tag]++;
-                echo '  <!-- tag: ' . $tags[$tag] . ' -->' . "\n";
-            }
-        } else {
-            echo '  <!-- NO TAGS!! -->' . "\n";
-        }
-        $tags = json_encode($tags);
-
-
-        // TODO Complete this chunk:
+        // We all start with nothing:
+        $tags = array();
         $cats = array();
+
+
+        // First, read the cookies for categories and tags:
         if (isset($_COOKIE['cookiepress-cats'])) {
+#            echo '<!-- Existing cookie contents for categories:' . "\n";
             $j = json_decode(stripslashes($_COOKIE['cookiepress-cats']), true);
             foreach ($j as $k => $v) {
-                echo '    <!-- Cookie:tag: ' . $k . ' = ' . $v . ' -->' . "\n";
+#                echo '  cat: ' . $k . ' = ' . $v . "\n";
+                $cats[$k] = $v;
             }
+#            echo '-->' . "\n";
+        }
+
+        if (isset($_COOKIE['cookiepress-tags'])) {
+#            echo '<!-- Existing cookie contents for tags:' . "\n";
+            $j = json_decode(stripslashes($_COOKIE['cookiepress-tags']), true);
+            foreach ($j as $k => $v) {
+#                echo '  tag: ' . $k . ' = ' . $v . "\n";
+                $tags[$k] = $v;
+            }
+#            echo '-->' . "\n";
         }
 
 
         if ($postcats) {
-            foreach($postcats as $c) {
-                $cat = get_category($c);
-                $cats[$cat->name]++; // TODO Use ID not name
-                echo '  <!-- cat: ' . $cat->name . ' -->' . "\n";
+            foreach($postcats as $cat_id) {
+                $cat = get_category($cat_id);
+                $cats[$cat_id]++;
             }
         } else {
-            echo '  <!-- NO CATS!! -->' . "\n";
+#            echo '  <!-- NO CATS!! -->' . "\n";
         }
         $cats = json_encode($cats);
+#        echo '<!-- Cookie for categories will now contain:' . "\n";
+#        echo '  ' . $cats . "\n-->\n\n";
 
-        // TODO update or set cookie
+        if ($posttags) {
+            foreach($posttags as $pt) {
+                $pt_id = $pt->term_id;
+                $tags[$pt_id]++;
+            }
+        } else {
+#            echo '  <!-- NO TAGS!! -->' . "\n";
+        }
+        $tags = json_encode($tags);
+#        echo '<!-- Cookie for tags will now contain:' . "\n";
+#        echo '  ' . $tags . "\n-->\n\n";
+
+
+
+        // Update or set cookie
         setcookie(
             'cookiepress-tags',
             $tags,
