@@ -4,8 +4,11 @@ A Wordpress plugin that uses cookies to track the tags and categories that users
 
 ## Installation
 
+Create a directory for the pulgin and put the relevant file(s) in it:
+
 ```bash
-wget https://raw.githubusercontent.com/austinjp/cookiepress/master/cookiepress.php -O- > /path/to/wordpress/wp-content/plugins
+mkdir /path/to/wordpress/wp-content/plugins/cookiepress/
+wget https://raw.githubusercontent.com/austinjp/cookiepress/master/cookiepress.php -O- > /path/to/wordpress/wp-content/plugins/cookiepress/cookiepress.php
 ```
 
 Then enable the plugin in the Wordpress plugins console.
