@@ -22,7 +22,7 @@ function cookiepress_activate() {
 function cookiepress_remove() { delete_option('cookiepress_data'); }
 
 
-function cookiepress_get_tags_set_cookie() {
+function cookiepress() {
 
     global $wp_query; 
     $postid = $wp_query->post->ID;

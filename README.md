@@ -15,8 +15,8 @@ To start setting cookies, try adding something like the following into your them
 ```php
 <!-- begin cookiepress -->
 <?php
-    if(function_exists('cookiepress_get_tags_set_cookie')) {
-        cookiepress_get_tags_set_cookie();
+    if(function_exists('cookiepress')) {
+        cookiepress();
     }
 ?>
 <!-- end cookiepress -->
