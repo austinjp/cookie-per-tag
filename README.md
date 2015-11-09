@@ -10,7 +10,7 @@ wget https://raw.githubusercontent.com/austinjp/cookiepress/master/cookiepress.p
 
 Then enable the plugin in the Wordpress plugins console.
 
-To start setting cookies, try adding something like the following into your theme's `header.php` file after the `,head>` tag:
+To start setting cookies, try adding something like the following into your theme's `header.php` file after the `<head>` tag:
 
 ```php
 <!-- begin cookiepress -->
