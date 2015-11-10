@@ -28,6 +28,8 @@ To start setting cookies, try adding something like the following into your them
 
 ## Use
 
+Check out the file `cookiepress_example.php` for a simple example. Note that you will need to include `wp-load.php` from Wordpress.
+
 Suggested uses might be to read the cookies in order to:
 
 * Generate links to related blog posts
