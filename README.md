@@ -32,3 +32,7 @@ Suggested uses might be to read the cookies in order to:
 
 * Generate links to related blog posts
 * Produce better usage stats
+
+## Test
+
+Try going to `http://yourwebsite.com/wp-content/plugins/cookiepress/cookiepress_example.php`
