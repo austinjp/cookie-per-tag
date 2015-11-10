@@ -95,14 +95,14 @@ function cookiepress() {
         setcookie(
             'cookiepress-tags',
             $tags,
-            time()+360,
+            time() + (86400 * 30),
             COOKIEPATH,
             COOKIE_DOMAIN
         );
         setcookie(
             'cookiepress-cats',
             $cats,
-            time()+360,
+            time() + (86400 * 30),
             COOKIEPATH,
             COOKIE_DOMAIN
         );
